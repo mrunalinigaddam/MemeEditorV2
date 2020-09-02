@@ -10,12 +10,15 @@ import UIKit
 
 class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UITextFieldDelegate{
 
+    // Variable will be used to check if the selected textfield is the bottom one
+    var activeTextField: UITextField?
+    
     //TO DISABLE CAMERA BUTTON IF CAM IS NOT AVAILABLE ON THE DEVICE
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         subscribeToKeyBoardNotifications()
-        shareButton.isEnabled = false
+    
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -33,14 +36,14 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.bottomTextField.textAlignment = .center
         self.topTextField.text = "TOP"
         self.bottomTextField.text = "BOTTOM"
-      
+        shareButton.isEnabled = false
     }
     
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var imagePickerView: UIImageView!
     @IBOutlet weak var cameraButton: UIBarButtonItem!
-    @IBOutlet weak var cancelButton: UIBarButtonItem!
+    @IBOutlet weak var doneButton: UIBarButtonItem!
     @IBOutlet weak var shareButton: UIBarButtonItem!
     
     //PICK IMAGE VIA CAMERA
@@ -65,8 +68,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         present(activityController, animated: true, completion: nil)
     }
     //Cancel to share MEME
-    @IBAction func cancelToShareMeme(_ sender: Any) {
-        leaveMemeInBetween()
+    @IBAction func doneToShareMeme(_ sender: Any) {
+       // leaveMemeInBetween()
+        self.dismiss(animated: true, completion: nil)
     }
     //To clear texts up on touch
     @IBAction func topTextField(_ sender: Any) {
@@ -151,15 +155,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     func save() {
         // Create and save the meme
-        _ = Meme(topText: topTextField.text!,
+        let meme = Meme(topText: topTextField.text!,
                         bottomText: bottomTextField.text!,
                         originalImage:imagePickerView.image!,
                         memedImage: generateMemedImage())
         
         // Add it to the memes array in the Application Delegate
-//        let object = UIApplication.shared.delegate
-//        let appDelegate = object as! AppDelegate
-//        appDelegate.memes.append(meme)
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.memes.append(meme)
+        print(appDelegate.memes.count)
+        
     }
 
     struct Meme {

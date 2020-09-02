@@ -207,9 +207,17 @@
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IFJ-Fg-8a7">
                                 <rect key="frame" x="0.0" y="18" width="375" height="44"/>
                                 <items>
-                                    <barButtonItem title="Cancel" id="9Nv-Dv-6un"/>
+                                    <barButtonItem title="Done" id="9Nv-Dv-6un">
+                                        <connections>
+                                            <action selector="cancelToShareMeme:" destination="BYZ-38-t0r" id="awK-t3-wP4"/>
+                                        </connections>
+                                    </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ZuA-um-g5U"/>
-                                    <barButtonItem title="Share" id="q9o-Yo-VP8"/>
+                                    <barButtonItem title="Share" id="q9o-Yo-VP8">
+                                        <connections>
+                                            <action selector="shareAnImage:" destination="BYZ-38-t0r" id="n2h-eh-rHV"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
