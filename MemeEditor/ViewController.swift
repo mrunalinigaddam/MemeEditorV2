@@ -167,13 +167,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         
     }
 
-    struct Meme {
-        let topText:String
-        let bottomText:String
-        let originalImage:UIImage
-        let memedImage:UIImage
-    }
-    
     //Created final MEME
     func generateMemedImage() -> UIImage {
         //Hide tab and nav bars
