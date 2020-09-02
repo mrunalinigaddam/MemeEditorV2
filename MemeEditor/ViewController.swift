@@ -161,9 +161,9 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
                         memedImage: generateMemedImage())
         
         // Add it to the memes array in the Application Delegate
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        appDelegate.memes.append(meme)
-        print(appDelegate.memes.count)
+        //let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        //appDelegate.memes.append(meme)
+        //print(appDelegate.memes.count)
         
     }
 

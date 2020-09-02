@@ -209,7 +209,7 @@
                                 <items>
                                     <barButtonItem title="Done" id="9Nv-Dv-6un">
                                         <connections>
-                                            <action selector="cancelToShareMeme:" destination="BYZ-38-t0r" id="awK-t3-wP4"/>
+                                            <action selector="doneToShareMeme:" destination="BYZ-38-t0r" id="cxD-FS-C1n"/>
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ZuA-um-g5U"/>
@@ -247,7 +247,7 @@
                     <connections>
                         <outlet property="bottomTextField" destination="kOj-K9-kuk" id="QAg-Ea-JjM"/>
                         <outlet property="cameraButton" destination="lYj-BN-XWK" id="ck6-oi-38B"/>
-                        <outlet property="cancelButton" destination="9Nv-Dv-6un" id="YI7-nJ-Bol"/>
+                        <outlet property="doneButton" destination="9Nv-Dv-6un" id="pEg-ZS-6bx"/>
                         <outlet property="imagePickerView" destination="jSQ-8s-Vjc" id="teH-D3-rTW"/>
                         <outlet property="shareButton" destination="q9o-Yo-VP8" id="3a2-8S-nF4"/>
                         <outlet property="topTextField" destination="FCP-6m-cxB" id="HVP-Gq-45e"/>
