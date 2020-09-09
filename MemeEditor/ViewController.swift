@@ -62,7 +62,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         activityController.completionWithItemsHandler = { activity, completed, items, error in
             if completed {
                 self.save()
-                self.dismiss(animated: true, completion: nil)
             }
         }
         present(activityController, animated: true, completion: nil)
