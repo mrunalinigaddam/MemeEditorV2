@@ -13,32 +13,54 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     // Variable will be used to check if the selected textfield is the bottom one
     var activeTextField: UITextField?
     
+    // Variables that will hold data meme data from previous controller
+    var sentTopText: String?
+    var sentBottomText: String?
+    var sentImage: UIImage?
+    
     //TO DISABLE CAMERA BUTTON IF CAM IS NOT AVAILABLE ON THE DEVICE
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         cameraButton.isEnabled = UIImagePickerController.isSourceTypeAvailable(.camera)
         subscribeToKeyBoardNotifications()
-    
+        if(self.sentImage != nil){
+            self.imagePickerView.image = self.sentImage
+        }
+        
+        if(self.sentTopText != nil){
+            self.topTextField.text = self.sentTopText!
+        }
+        
+        if(self.sentBottomText != nil){
+            self.bottomTextField.text = self.sentBottomText!
+        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         unSubscribeToKeyBoardNotifications()
+        
     }
     override func viewDidLoad() {
+        // Recognizer to dismiss keyboard when user taps away from the keyboard or textfield
+        let tapAnywhere = UITapGestureRecognizer(target: self, action: #selector(self.dismiss(animated:completion:)))
+        self.view.addGestureRecognizer(tapAnywhere)
         
-        self.topTextField.delegate = self
-        self.bottomTextField.delegate = self
-          //setting text properties form dictionary
-        topTextField.defaultTextAttributes = memeTextAttributes
-        bottomTextField.defaultTextAttributes = memeTextAttributes
-        //text alignemnet to center
-        self.topTextField.textAlignment = .center
-        self.bottomTextField.textAlignment = .center
-        self.topTextField.text = "TOP"
-        self.bottomTextField.text = "BOTTOM"
+        bottomTextField.delegate = self
+        topTextField.delegate = self
+        textFieldSetup(topTextField)
+        textFieldSetup(bottomTextField)
         shareButton.isEnabled = false
+        
+        // Set textfields and image if they are being passed over
+        if sentTopText != nil && sentBottomText != nil && sentImage != nil{
+            
+            topTextField.text = sentTopText
+            bottomTextField.text = sentBottomText
+            imagePickerView.image = sentImage
+            
+        }
     }
-    
+
     @IBOutlet weak var topTextField: UITextField!
     @IBOutlet weak var bottomTextField: UITextField!
     @IBOutlet weak var imagePickerView: UIImageView!
@@ -79,6 +101,18 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func bottomTextField(_ sender: Any) {
         textFieldDidBeginEditing(bottomTextField)
     }
+    //To set Text Fields
+    func textFieldSetup(_ textfield: UITextField) {
+        
+        textfield.defaultTextAttributes = memeTextAttributes
+        textfield.textAlignment = .center
+        if textfield == topTextField && topTextField.text == "" {
+            textfield.text = "TOP"
+        }
+        if textfield == bottomTextField && bottomTextField.text == "" {
+            bottomTextField.text = "BOTTOM"
+        }
+    }
     //COMMON METHOD TO SHARE VIA BOTH
     func chooseImageFromCameraOrPhoto(source: UIImagePickerController.SourceType) {
         let pickerController = UIImagePickerController()
@@ -92,7 +126,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         print("Image selected")
         if let image = info[.originalImage] as? UIImage {
             imagePickerView.image = image
-            
         }
         else if let editedImage = info[.editedImage] as? UIImage {
             imagePickerView.image = editedImage
@@ -125,10 +158,6 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         NSAttributedString.Key.font: UIFont(name: "HelveticaNeue-CondensedBlack", size: 40)!,
         NSAttributedString.Key.strokeWidth: -2.0
     ]
-    // Variables that will hold data meme data from previous controller
-    var sentTopText: String?
-    var sentBottomText: String?
-    var sentImage: UIImage?
     
     //Key board settings
     @objc func keyboardWillShow(_ notification:Notification){

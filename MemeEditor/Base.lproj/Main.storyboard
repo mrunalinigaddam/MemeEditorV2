@@ -216,7 +216,7 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ZuA-um-g5U"/>
-                                    <barButtonItem title="Share" id="q9o-Yo-VP8">
+                                    <barButtonItem title="Share" systemItem="action" id="q9o-Yo-VP8">
                                         <connections>
                                             <action selector="shareAnImage:" destination="BYZ-38-t0r" id="n2h-eh-rHV"/>
                                         </connections>
